@@ -7,22 +7,10 @@ import { useApp } from "@/context/AppContext"
 export default function PropertyCard({ property }) {
   const { state, dispatch } = useApp()
 
-  const isFavorite = state.favorites.some((p) => p.id === property.id)
   const isInCompare = state.compareList.some((p) => p.id === property.id)
   const isInCart = state.cart.some((item) => item.property.id === property.id)
 
-  const toggleFavorite = () => {
-    if (!state.user) {
-      alert("Please login to add favorites")
-      return
-    }
 
-    if (isFavorite) {
-      dispatch({ type: "REMOVE_FROM_FAVORITES", payload: property.id })
-    } else {
-      dispatch({ type: "ADD_TO_FAVORITES", payload: property })
-    }
-  }
 
   const toggleCompare = () => {
     if (isInCompare) {
@@ -55,14 +43,6 @@ export default function PropertyCard({ property }) {
           height={300}
           className="w-full h-48 object-cover"
         />
-        <button
-          onClick={toggleFavorite}
-          className={`absolute top-2 right-2 p-2 rounded-full ${
-            isFavorite ? "bg-red-500 text-white" : "bg-white text-gray-600"
-          } hover:scale-110 transition-transform`}
-        >
-          ❤️
-        </button>
       </div>
 
       <div className="p-4">
